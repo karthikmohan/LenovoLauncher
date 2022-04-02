@@ -8,9 +8,10 @@
         <entry key="app/src/main/res/drawable/ic_home_white_24dp.xml" value="0.171" />
         <entry key="app/src/main/res/drawable/ic_store_white_24dp.xml" value="0.171" />
         <entry key="app/src/main/res/layout/activity_fullscreen.xml" value="0.17451874366767983" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_slideshow.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/activity_video_viewer.xml" value="0.35885416666666664" />
-        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_fourth.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/fragment_third.xml" value="0.35885416666666664" />
@@ -23,5 +24,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>

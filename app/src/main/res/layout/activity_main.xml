@@ -86,7 +86,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:format12Hour="EE, dd-MMM, hh:mm a"
+            android:format12Hour="EE, dd MMM, hh:mm a"
             />
     </RelativeLayout>
     </LinearLayout>
@@ -105,7 +105,7 @@
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:backgroundColor="@color/colorPrimary"
+        app:backgroundColor="#99000000"
         app:textColor="@color/colorTextPrimary"
         app:textSize="14sp"
         app:iconSize="24dp"
@@ -115,7 +115,6 @@
         app:itemPadding="10dp"
         app:iconTint="#C8FFFFFF"
         app:iconTintActive="#FFFFFF"
-        app:cornerRadius="16dp"
         app:corners="top_left|bottom_right"
         app:menu="@menu/menu_bottom"
         app:layout_constraintBottom_toBottomOf="parent"/>

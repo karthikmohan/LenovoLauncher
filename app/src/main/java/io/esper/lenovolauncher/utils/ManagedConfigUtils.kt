@@ -33,6 +33,7 @@ object ManagedConfigUtils {
     private var patientPhone: String? = null
     private var patientRoom: String? = null
     private var patientName: String? = null
+    private var patientId: String? = null
     private var kioskSlideshowImageStrategy: Int = 1
     private var kioskSlideshowDelay: Int = 3
     private var kioskSlideshowPath: String = InternalRootFolder
@@ -94,6 +95,10 @@ object ManagedConfigUtils {
                 )
             )
                 appRestrictions.getInt(Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW_IMAGE_STRATEGY) else 1
+
+        patientId = if (appRestrictions.containsKey(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID))
+            appRestrictions.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID)
+                .toString() else null
 
         patientName = if (appRestrictions.containsKey(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME))
             appRestrictions.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME)
@@ -199,58 +204,61 @@ object ManagedConfigUtils {
         if (sharedPrefManaged.getBoolean(Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW, false))
             activity.startActivity(Intent(activity, SlideshowActivity::class.java))
 
-
-        if(patientName!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME, null)) {
+        if (patientId != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID, null)) {
+            sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID, patientId).apply()
+            changeInValue = true
+        }
+        if (patientName != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME, patientName).apply()
             changeInValue = true
         }
-        if(patientRoom!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM, null)) {
+        if (patientRoom != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM, patientRoom).apply()
             changeInValue = true
         }
-        if(patientPhone!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_PHONE, null)) {
+        if (patientPhone != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_PHONE, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_PHONE, patientPhone).apply()
             changeInValue = true
         }
 
-        if(care1!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_1, null)) {
+        if (care1 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_1, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_1, care1).apply()
             changeInValue = true
         }
-        if(care2!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_2, null)) {
+        if (care2 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_2, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_2, care2).apply()
             changeInValue = true
         }
-        if(care3!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_3, null)) {
+        if (care3 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_3, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_3, care3).apply()
             changeInValue = true
         }
-        if(care4!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_4, null)) {
+        if (care4 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_4, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_4, care4).apply()
             changeInValue = true
         }
-        if(care5!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_5, null)) {
+        if (care5 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_5, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_CARE_TEAM_5, care5).apply()
             changeInValue = true
         }
 
-        if(featureapp1!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_1, null)) {
+        if (featureapp1 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_1, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_1, featureapp1).apply()
             changeInValue = true
         }
-        if(featureapp2!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_2, null)) {
+        if (featureapp2 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_2, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_2, featureapp2).apply()
             changeInValue = true
         }
-        if(featureapp3!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_3, null)) {
+        if (featureapp3 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_3, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_3, featureapp3).apply()
             changeInValue = true
         }
-        if(featureapp4!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_4, null)) {
+        if (featureapp4 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_4, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_4, featureapp4).apply()
             changeInValue = true
         }
-        if(featureapp5!=sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_5, null)) {
+        if (featureapp5 != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_5, null)) {
             sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_FEATURED_APP_5, featureapp5).apply()
             changeInValue = true
         }
@@ -262,7 +270,7 @@ object ManagedConfigUtils {
                 .apply()
         }
 
-        if(changeInValue) {
+        if (changeInValue) {
             changeInValue = false
             EventBus.getDefault().post(
                 MainActivity.RefreshNeeded("ui")

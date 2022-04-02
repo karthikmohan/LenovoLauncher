@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.os.Build.VERSION
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
@@ -25,32 +26,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 class MainActivity : AppCompatActivity() {
     private val mHideHandler = Handler()
 
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    @SuppressLint("ClickableViewAccessibility")
-    private val mDelayHideTouchListener = OnTouchListener { _, motionEvent ->
-        when (motionEvent.action) {
-            MotionEvent.ACTION_DOWN -> if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS)
-            }
-            MotionEvent.ACTION_UP -> {}
-            else -> {}
-        }
-        false
-    }
+//    private lateinit var mHandler: Handler
+//    private lateinit var mRunnable: Runnable
+//    private var mTime: Long = 2000
 
     private var mContentView: View? = null
     private val mHidePart2Runnable = Runnable {
@@ -60,9 +43,6 @@ class MainActivity : AppCompatActivity() {
                 WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars()
             )
         } else {
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
             mContentView!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                     or View.SYSTEM_UI_FLAG_FULLSCREEN
                     or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -70,11 +50,6 @@ class MainActivity : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
         }
-    }
-    private val mShowPart2Runnable = Runnable {
-        // Delayed display of UI elements
-        val actionBar = supportActionBar
-        actionBar?.show()
     }
 
     private var mVisible = false
@@ -97,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         preInit()
 
         greetingSetter()
-        timeAndDateSetter()
+//        interactionDetector()
 
 
         // Upon interacting with UI controls, delay any scheduled hide()
@@ -106,11 +81,27 @@ class MainActivity : AppCompatActivity() {
 //        binding.bottomBar.setOnTouchListener(mDelayHideTouchListener)
     }
 
-    private fun timeAndDateSetter() {
-//        val sdf = SimpleDateFormat("EEE, MMM d, ''yy ',' HH:mm:ss")
-//        val currentDateAndTime: String = sdf.format(Date())
-//        timeAndDateText.text = currentDateAndTime
-    }
+//    private fun interactionDetector() {
+//        mHandler = Handler(Looper.getMainLooper())
+//        mRunnable = Runnable {
+//            hide()
+//        }
+//        startHandler()
+//    }
+
+//    override fun onTouchEvent(event: MotionEvent?): Boolean {
+//        stopHandler()
+//        startHandler()
+//        return super.onTouchEvent(event)
+//    }
+//
+//    private fun startHandler() {
+//        mHandler.postDelayed(mRunnable, mTime)
+//    }
+//
+//    private fun stopHandler() {
+//        mHandler.removeCallbacks(mRunnable)
+//    }
 
     private fun greetingSetter() {
         val date = Date()
@@ -162,12 +153,12 @@ class MainActivity : AppCompatActivity() {
         initManagedConfig(this)
     }
 
-    private fun toggle() {
-        if (mVisible) {
+    override fun onResume() {
+        mHideHandler.postDelayed(Runnable {
+            runnable?.let { mHideHandler.postDelayed(it, delay.toLong()) }
             hide()
-        } else {
-            show()
-        }
+        }.also { runnable = it }, delay.toLong())
+        super.onResume()
     }
 
     private fun hide() {
@@ -177,25 +168,7 @@ class MainActivity : AppCompatActivity() {
         mVisible = false
 
         // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable)
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY.toLong())
-    }
-
-    private fun show() {
-        // Show the system bar
-        if (VERSION.SDK_INT >= 30) {
-            mContentView!!.windowInsetsController!!.show(
-                WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars()
-            )
-        } else {
-            mContentView!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
-        }
-        mVisible = true
-
-        // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable)
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY.toLong())
     }
 
     /**
@@ -227,23 +200,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     class RefreshNeeded(val event: String)
+
     companion object {
-        /**
-         * Whether or not the system UI should be auto-hidden after
-         * [.AUTO_HIDE_DELAY_MILLIS] milliseconds.
-         */
         private const val AUTO_HIDE = true
-
-        /**
-         * If [.AUTO_HIDE] is set, the number of milliseconds to wait after
-         * user interaction before hiding the system UI.
-         */
         private const val AUTO_HIDE_DELAY_MILLIS = 3000
-
-        /**
-         * Some older devices needs a small delay between UI widget updates
-         * and a change of the status and navigation bar.
-         */
         private const val UI_ANIMATION_DELAY = 300
+        private var runnable: Runnable? = null
+        private var delay = 20000
     }
 }
