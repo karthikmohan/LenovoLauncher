@@ -35,7 +35,7 @@
                 android:layout_alignParentStart="true"
                 android:text="Hello,"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hello,"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
@@ -63,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="3dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp">
 
@@ -73,7 +74,7 @@
             android:layout_alignParentStart="true"
             android:text="Room 284 | 555.555.1234"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -83,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             android:format12Hour="EE, dd MMM, hh:mm a"
@@ -93,13 +94,15 @@
 
     <fragment
         android:id="@+id/main_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        app:navGraph='@navigation/nav_graph'
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
         app:layout_constraintTop_toBottomOf="@+id/top_layout"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBar"/>
+        app:layout_constraintVertical_bias="0.0"
+        app:navGraph='@navigation/nav_graph'
+        tools:layout_editor_absoluteX="0dp" />
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"

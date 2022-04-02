@@ -31,5 +31,5 @@
         android:layout_height="45dp"
         android:background="#33000000"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="@android:color/white" />
 </FrameLayout>
