@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity() {
         addItemsFromJSON(this)
         greetingSetter()
         roomAndIdSetter()
+        wallpaperSetter()
 
         binding.settings.setOnClickListener { startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
 
@@ -238,30 +239,33 @@ class MainActivity : AppCompatActivity() {
                 MyStayFragment.RefreshNeededInFragment("ui")
             )
         } else if (event.refresh == "wallpaper") {
+            wallpaperSetter()
+        }
+    }
 
-            if (sharedPrefManaged?.getString(
+    private fun wallpaperSetter() {
+        if (sharedPrefManaged?.getString(
+                Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER,
+                null
+            ) != null
+        ) {
+            Glide.with(this).load(
+                sharedPrefManaged?.getString(
                     Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER,
                     null
-                ) != null
-            ) {
-                Glide.with(this).load(
-                    sharedPrefManaged?.getString(
-                        Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER,
-                        null
-                    )
-                ).diskCacheStrategy(
-                    DiskCacheStrategy.ALL
-                ).placeholder(R.drawable.bg2)
-                    .priority(Priority.HIGH).into(object : CustomTarget<Drawable?>() {
-                        override fun onResourceReady(resource: Drawable, @Nullable transition: Transition<in Drawable?>?) {
-                            main_layout.background = resource
-                        }
+                )
+            ).diskCacheStrategy(
+                DiskCacheStrategy.ALL
+            ).placeholder(R.drawable.bg2)
+                .priority(Priority.HIGH).into(object : CustomTarget<Drawable?>() {
+                    override fun onResourceReady(resource: Drawable, @Nullable transition: Transition<in Drawable?>?) {
+                        main_layout.background = resource
+                    }
 
-                        override fun onLoadCleared(@Nullable placeholder: Drawable?) {}
-                    })
-            } else {
-                main_layout.background = ContextCompat.getDrawable(this, R.drawable.bg2)
-            }
+                    override fun onLoadCleared(@Nullable placeholder: Drawable?) {}
+                })
+        } else {
+            main_layout.background = ContextCompat.getDrawable(this, R.drawable.bg2)
         }
     }
 

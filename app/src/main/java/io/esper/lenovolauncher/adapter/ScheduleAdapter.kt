@@ -31,7 +31,6 @@ class ScheduleAdapter(private val context: Context, private val mealInfoItem: Mu
         holder: MyViewHolder,
         position: Int
     ) {
-
         holder.mealTiming.text = mealInfoItem!![position].dateTime
         holder.meal.text = mealInfoItem[position].meetingTitle + " | " + mealInfoItem[position].meetingLocation
     }
