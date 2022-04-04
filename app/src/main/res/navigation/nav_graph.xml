@@ -3,38 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/first_fragment">
+    app:startDestination="@id/mystay_fragment">
 
     <fragment
-        android:id="@+id/first_fragment"
-        android:name="io.esper.lenovolauncher.fragment.FirstFragment"
-        android:label="Dashboard"
-        tools:layout="@layout/fragment_first" >
+        android:id="@+id/mystay_fragment"
+        android:name="io.esper.lenovolauncher.fragment.MyStayFragment"
+        android:label="My Stay"
+        tools:layout="@layout/fragment_mystay">
         <action
-            android:id="@+id/action_firstFragment_to_secondFragment"
-            app:destination="@id/second_fragment" />
+            android:id="@+id/action_MyStayFragment_to_EntertainmentFragment"
+            app:destination="@id/entertainment_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/second_fragment"
-        android:name="io.esper.lenovolauncher.fragment.SecondFragment"
-        android:label="Leaderboard"
-        tools:layout="@layout/fragment_second" >
+        android:id="@+id/entertainment_fragment"
+        android:name="io.esper.lenovolauncher.fragment.EntertainmentFragment"
+        android:label="Entertainment"
+        tools:layout="@layout/fragment_entertainment">
         <action
-            android:id="@+id/action_secondFragment_to_thirdFragment"
-            app:destination="@id/third_fragment" />
+            android:id="@+id/action_EntertainmentFragment_to_RelaxationFragment"
+            app:destination="@id/relaxation_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/third_fragment"
-        android:name="io.esper.lenovolauncher.fragment.ThirdFragment"
-        android:label="Store"
-        tools:layout="@layout/fragment_third" >
+        android:id="@+id/relaxation_fragment"
+        android:name="io.esper.lenovolauncher.fragment.RelaxationFragment"
+        android:label="Relaxation"
+        tools:layout="@layout/fragment_relaxtion">
         <action
-            android:id="@+id/action_thirdFragment_to_fourthFragment"
-            app:destination="@id/fourth_fragment" />
+            android:id="@+id/action_RelaxationFragment_to_VideoVisitFragment"
+            app:destination="@id/video_visit_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/fourth_fragment"
-        android:name="io.esper.lenovolauncher.fragment.FourthFragment"
+        android:id="@+id/video_visit_fragment"
+        android:name="io.esper.lenovolauncher.fragment.VideoVisitFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_fourth" />
+        tools:layout="@layout/fragment_video_visit" />
 </navigation>

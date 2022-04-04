@@ -4,6 +4,7 @@ package io.esper.lenovolauncher.constants
 
 import android.content.SharedPreferences
 import android.os.Environment
+import io.esper.lenovolauncher.model.HospitalDbItem
 import java.io.File
 
 object Constants {
@@ -34,12 +35,17 @@ object Constants {
     const val ContentAdapterTag = "ContentAdapter"
     const val DownloadUtilsTag = "DownloadUtils"
     const val SDKUtilsTag = "SDKUtils"
+    const val MyStayFragmentTag = "MyStayFragment"
+    const val EntertainmentFragmentTag = "EntertainmentFragment"
 
     const val SHARED_PREF_DEVICE_ID = "deviceId"
+
+    var allResults: MutableList<HospitalDbItem> = ArrayList()
 
     //SharedPref
     @kotlin.jvm.JvmField
     var sharedPref: SharedPreferences? = null
+
     @kotlin.jvm.JvmField
     var sharedPrefManaged: SharedPreferences? = null
 
@@ -56,25 +62,7 @@ object Constants {
     const val SHARED_MANAGED_CONFIG_PATIENT_ID = "patient_id"
     const val SHARED_MANAGED_CONFIG_PATIENT_NAME = "patient_name"
     const val SHARED_MANAGED_CONFIG_PATIENT_ROOM = "patient_room"
-    const val SHARED_MANAGED_CONFIG_PATIENT_PHONE = "patient_phone"
-
-    const val SHARED_MANAGED_CONFIG_CARE_TEAM_1 = "care_team_1"
-    const val SHARED_MANAGED_CONFIG_CARE_TEAM_2 = "care_team_2"
-    const val SHARED_MANAGED_CONFIG_CARE_TEAM_3 = "care_team_3"
-    const val SHARED_MANAGED_CONFIG_CARE_TEAM_4 = "care_team_4"
-    const val SHARED_MANAGED_CONFIG_CARE_TEAM_5 = "care_team_5"
-
-    const val SHARED_MANAGED_CONFIG_UPCOMING_MEETINGS_1 = "upcoming_meetings_1"
-    const val SHARED_MANAGED_CONFIG_UPCOMING_MEETINGS_2 = "upcoming_meetings_2"
-    const val SHARED_MANAGED_CONFIG_UPCOMING_MEETINGS_3 = "upcoming_meetings_3"
-    const val SHARED_MANAGED_CONFIG_UPCOMING_MEETINGS_4 = "upcoming_meetings_4"
-    const val SHARED_MANAGED_CONFIG_UPCOMING_MEETINGS_5 = "upcoming_meetings_5"
-
-    const val SHARED_MANAGED_CONFIG_FEATURED_APP_1 = "featuerd_app_1"
-    const val SHARED_MANAGED_CONFIG_FEATURED_APP_2 = "featuerd_app_2"
-    const val SHARED_MANAGED_CONFIG_FEATURED_APP_3 = "featuerd_app_3"
-    const val SHARED_MANAGED_CONFIG_FEATURED_APP_4 = "featuerd_app_4"
-    const val SHARED_MANAGED_CONFIG_FEATURED_APP_5 = "featuerd_app_5"
+    const val SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER = "launcher_wallpaper"
 
     // Esper Specific
     const val SHARED_MANAGED_CONFIG_ENDPOINT = "endpoint"

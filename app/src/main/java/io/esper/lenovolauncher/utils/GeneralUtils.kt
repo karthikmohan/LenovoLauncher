@@ -5,6 +5,7 @@ package io.esper.lenovolauncher.utils
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -14,12 +15,13 @@ import android.os.StrictMode
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import io.esper.lenovolauncher.activity.MainActivity
 import io.esper.lenovolauncher.constants.Constants
 import io.esper.lenovolauncher.constants.Constants.SHARED_MANAGED_CONFIG_VALUES
 import io.esper.lenovolauncher.constants.Constants.sharedPrefManaged
-import io.esper.lenovolauncher.activity.MainActivity
 import io.esper.lenovolauncher.utils.ManagedConfigUtils.getManagedConfigValues
 import java.io.File
 
@@ -47,7 +49,7 @@ object GeneralUtils {
     fun hasNetwork(context: Context): Boolean? {
         var isConnected: Boolean? = false
         val connectivityManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
         if (activeNetwork != null && activeNetwork.isConnected)
             isConnected = true
@@ -59,7 +61,11 @@ object GeneralUtils {
             context as Activity, arrayOf(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.READ_PHONE_STATE
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.INTERNET,
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.MODIFY_AUDIO_SETTINGS
             ), Constants.storagePermission
         )
     }
@@ -92,11 +98,29 @@ object GeneralUtils {
                 ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.READ_PHONE_STATE
+        ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.MODIFY_AUDIO_SETTINGS
         ) == PackageManager.PERMISSION_GRANTED
     }
 
     @JvmStatic
-    fun initManagedConfig(mainActivity: MainActivity) {
-        getManagedConfigValues(mainActivity, sharedPrefManaged!!)
+    fun initManagedConfig(activity: MainActivity) {
+        getManagedConfigValues(activity = activity, sharedPrefManaged!!)
+    }
+
+    fun openApp(ctx: Context, packageName: String) {
+        try {
+            val i: Intent = ctx.packageManager.getLaunchIntentForPackage(packageName)!!
+            ctx.startActivity(i)
+        } catch (e: Exception) {
+            Toast.makeText(ctx, "Sorry, this app is not available. Please contact administrator!", Toast.LENGTH_SHORT).show()
+        }
     }
 }

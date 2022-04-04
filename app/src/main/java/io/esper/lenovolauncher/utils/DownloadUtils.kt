@@ -12,9 +12,7 @@ import com.downloader.PRDownloader
 import com.downloader.PRDownloaderConfig
 import io.esper.lenovolauncher.constants.Constants
 import io.esper.lenovolauncher.constants.Constants.DownloadUtilsTag
-import io.esper.lenovolauncher.activity.MainActivity
 import io.karn.notify.Notify
-import org.greenrobot.eventbus.EventBus
 import kotlin.math.min
 
 @Suppress("DEPRECATION")
@@ -32,45 +30,48 @@ object DownloadUtils {
         var prevProgress = 0
         initFileDownloader(mContext)
         PRDownloader.download(url, Constants.InternalRootFolder, fileName)
-                .build()
-                .setOnStartOrResumeListener {
-                    Log.d(DownloadUtilsTag, "Download Started $fileName")
-                    downloadBtn.isEnabled = false
-                    downloadImg.visibility = View.GONE
-                    downloadTxt.visibility = View.VISIBLE
-                    downloadStartNotification(mContext, fileName, id)
+            .build()
+            .setOnStartOrResumeListener {
+                Log.d(DownloadUtilsTag, "Download Started $fileName")
+                downloadBtn.isEnabled = false
+                downloadImg.visibility = View.GONE
+                downloadTxt.visibility = View.VISIBLE
+                downloadStartNotification(mContext, fileName, id)
+            }
+            .setOnPauseListener { }
+            .setOnCancelListener { }
+            .setOnProgressListener {
+                val progressPercent: Long = it.currentBytes * 100 / it.totalBytes
+                if (progressPercent.toInt() > prevProgress) {
+                    prevProgress = progressPercent.toInt()
+                    downloadTxt.text = "$prevProgress%"
                 }
-                .setOnPauseListener { }
-                .setOnCancelListener { }
-                .setOnProgressListener {
-                    val progressPercent: Long = it.currentBytes * 100 / it.totalBytes
-                    if(progressPercent.toInt() > prevProgress) {
-                        prevProgress = progressPercent.toInt()
-                        downloadTxt.text = "$prevProgress%"
-                    }
-                }
-                .start(object : OnDownloadListener {
-                    override fun onDownloadComplete() {
-                        Log.d(DownloadUtilsTag, "Download Completed $fileName")
-                        downloadCompleteNotification(mContext, fileName, id)
+            }
+            .start(object : OnDownloadListener {
+                override fun onDownloadComplete() {
+                    Log.d(DownloadUtilsTag, "Download Completed $fileName")
+                    downloadCompleteNotification(mContext, fileName, id)
 //                        downloadImg.setImageResource(R.drawable.complete)
-                        downloadImg.visibility = View.VISIBLE
-                        downloadTxt.visibility = View.GONE
-                        EventBus.getDefault().post(
-                            MainActivity.RefreshNeeded("wallpaper")
-                        )
-                    }
+                    downloadImg.visibility = View.VISIBLE
+                    downloadTxt.visibility = View.GONE
+//                    EventBus.getDefault().post(
+//                        MainActivity.RefreshNeeded("wallpaper")
+//                    )
+                }
 
-                    override fun onError(error: com.downloader.Error?) {
-                        Log.d(DownloadUtilsTag, "Download Error : Response Code :${error!!.responseCode} and Message :${error.serverErrorMessage}")
-                        if(error.isServerError)
-                            Log.d(DownloadUtilsTag, "Download Error : Server issue: ${error.isServerError}")
-                        if(error.isConnectionError)
-                            Log.d(DownloadUtilsTag, "Download Error : Connection issue: ${error.isConnectionError}")
+                override fun onError(error: com.downloader.Error?) {
+                    Log.d(
+                        DownloadUtilsTag,
+                        "Download Error : Response Code :${error!!.responseCode} and Message :${error.serverErrorMessage}"
+                    )
+                    if (error.isServerError)
+                        Log.d(DownloadUtilsTag, "Download Error : Server issue: ${error.isServerError}")
+                    if (error.isConnectionError)
+                        Log.d(DownloadUtilsTag, "Download Error : Connection issue: ${error.isConnectionError}")
 
 //                        downloadImg.setImageResource(R.drawable.ic_cloud_download)
-                    }
-                })
+                }
+            })
     }
 
     private fun initFileDownloader(mContext: Context) {
@@ -88,14 +89,14 @@ object DownloadUtils {
             expandedText = "We'll notify you once the download is complete"
             bigText = ""
         }
-                .progress {
-                    showProgress = true
-                }.show(id)
+            .progress {
+                showProgress = true
+            }.show(id)
     }
 
     fun downloadCompleteNotification(mContext: Context, fileName: String, id: Int) {
         Notify.cancelNotification(mContext, id)
-        val newFileName: String = if(fileName.length>15)
+        val newFileName: String = if (fileName.length > 15)
             fileName.substring(0, min(fileName.length, 10)) + "..."
         else
             fileName

@@ -82,3 +82,6 @@
 -keep class net.mreunionlabs.wob.model.request.** { *; }
 -keep class net.mreunionlabs.wob.model.response.** { *; }
 -keep class net.mreunionlabs.wob.model.gson.** { *; }
+
+-keep class * extends android.webkit.WebChromeClient { *; }
+-dontwarn im.delight.android.webview.**

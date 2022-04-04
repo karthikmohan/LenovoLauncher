@@ -16,21 +16,20 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import io.esper.lenovolauncher.R
 import io.esper.lenovolauncher.constants.Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW_DELAY
 import io.esper.lenovolauncher.constants.Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW_IMAGE_STRATEGY
 import io.esper.lenovolauncher.constants.Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW_PATH
 import io.esper.lenovolauncher.constants.Constants.SHARED_MANAGED_CONFIG_VALUES
 import io.esper.lenovolauncher.constants.Constants.SlideShowActivityTag
 import io.esper.lenovolauncher.listener.OnSwipeTouchListener
+import io.esper.lenovolauncher.model.FileItem
 import io.esper.lenovolauncher.strategy.image.ImageStrategy
 import io.esper.lenovolauncher.strategy.image.custom.CustomImageStrategy
 import io.esper.lenovolauncher.strategy.image.glide.GlideImageStrategy
-import io.esper.lenovolauncher.R
-import io.esper.lenovolauncher.model.FileItem
 import java.io.File
 import java.net.URLConnection
-import java.util.*
-import java.util.Collections.*
+import java.util.Collections.shuffle
 
 @Suppress("DEPRECATION")
 class SlideshowActivity : AppCompatActivity(), ImageStrategy.ImageStrategyCallback {

@@ -2,45 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/first_fragment"
-        android:title="My Stay"
-        android:contentDescription="My Stay"
-        android:icon="@drawable/ic_home_white_24dp"/>
+        android:id="@+id/mystay_fragment"
+        android:contentDescription="@string/my_stay"
+        android:icon="@drawable/mystay"
+        android:title="@string/my_stay" />
 
     <item
-        android:id="@+id/second_fragment"
-        android:title="Test2"
-        android:contentDescription="Test2"
-        android:icon="@drawable/ic_dashboard_white_24dp"/>
+        android:id="@+id/entertainment_fragment"
+        android:contentDescription="@string/entertainment"
+        android:icon="@drawable/entertainment"
+        android:title="@string/entertainment" />
 
     <item
-        android:id="@+id/third_fragment"
-        android:title="Test3"
-        android:contentDescription="Test3"
-        android:icon="@drawable/ic_store_white_24dp"/>
+        android:id="@+id/relaxation_fragment"
+        android:contentDescription="@string/relaxation"
+        android:icon="@drawable/relaxation"
+        android:title="@string/relaxation" />
 
     <item
-        android:id="@+id/fourth_fragment"
-        android:title="Test4"
-        android:contentDescription="Test4"
-        android:icon="@drawable/ic_store_white_24dp"/>
+        android:id="@+id/video_visit_fragment"
+        android:contentDescription="@string/video_visit"
+        android:icon="@drawable/videocall"
+        android:title="@string/video_visit" />
 
     <item
-        android:id="@+id/fifth_fragment"
-        android:title="Test4"
-        android:contentDescription="Test4"
-        android:icon="@drawable/ic_store_white_24dp"/>
-
-    <item
-        android:id="@+id/fsizth_fragment"
-        android:title="Test4"
-        android:contentDescription="Test4"
-        android:icon="@drawable/ic_store_white_24dp"/>
-
-    <item
-        android:id="@+id/sixth_fragment"
-        android:title="Test4"
-        android:contentDescription="Test4"
-        android:icon="@drawable/ic_store_white_24dp"/>
-
+        android:id="@+id/hello_fragment"
+        android:contentDescription="@string/hello"
+        android:icon="@drawable/hello"
+        android:title="@string/hello" />
 </menu>

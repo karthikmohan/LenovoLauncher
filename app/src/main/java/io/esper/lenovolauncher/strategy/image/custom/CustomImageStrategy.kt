@@ -5,13 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.widget.ImageView
+import io.esper.lenovolauncher.model.FileItem
 import io.esper.lenovolauncher.strategy.image.ImageStrategy
 import io.esper.lenovolauncher.strategy.image.ImageStrategy.ImageStrategyCallback
 import io.esper.lenovolauncher.strategy.image.custom.CustomRotateDimenTransformation.getRotationFromDimensions
 import io.esper.lenovolauncher.strategy.image.custom.CustomRotateDimenTransformation.getRotationFromExif
 import io.esper.lenovolauncher.strategy.image.custom.CustomRotateDimenTransformation.isCoordinatesSwapped
 import io.esper.lenovolauncher.strategy.image.custom.CustomRotateDimenTransformation.rotate
-import io.esper.lenovolauncher.model.FileItem
 import javax.microedition.khronos.opengles.GL11
 import kotlin.math.max
 

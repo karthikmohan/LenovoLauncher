@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    card_view:cardBackgroundColor="@android:color/transparent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/my_care_team_image"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:src="@drawable/default_care_team_image" />
+
+    <TextView
+        android:id="@+id/my_care_team_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/my_care_team_image"
+        android:maxLines="3"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Arquivo" />
+
+    <TextView
+        android:id="@+id/my_care_team_designation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_care_team_name"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/my_care_team_image"
+        android:maxLines="3"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        tools:text="5 itens" />
+
+</RelativeLayout>
