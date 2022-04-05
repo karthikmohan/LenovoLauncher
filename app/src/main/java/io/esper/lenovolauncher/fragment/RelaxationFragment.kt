@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
@@ -26,6 +27,13 @@ class RelaxationFragment : Fragment(), AdvancedWebView.Listener {
         val rootView: View = inflater.inflate(R.layout.fragment_relaxtion, container, false)
         mWebView = rootView.findViewById<View>(R.id.webview_relaxation) as AdvancedWebView
         mWebView!!.setDesktopMode(true)
+        mWebView!!.settings.builtInZoomControls = true
+        mWebView!!.settings.displayZoomControls = false
+        mWebView!!.settings.setAppCacheMaxSize( 5 * 1024 * 1024 )
+        mWebView!!.settings.setAppCachePath( requireContext().applicationContext.cacheDir.absolutePath)
+        mWebView!!.settings.allowFileAccess = true
+        mWebView!!.settings.setAppCacheEnabled( true )
+        mWebView!!.settings.cacheMode = WebSettings.LOAD_DEFAULT
         mWebView!!.setMixedContentAllowed(true)
         mWebView!!.webViewClient = WebViewClient()
         mWebView!!.webChromeClient = MyChrome(activity)

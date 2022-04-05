@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import android.widget.Toast
@@ -31,6 +32,14 @@ class VideoVisitFragment : Fragment(), AdvancedWebView.Listener {
         val rootView: View = inflater.inflate(R.layout.fragment_video_visit, container, false)
         mWebView = rootView.findViewById<View>(R.id.webview_video_visit) as AdvancedWebView
         mWebView!!.setDesktopMode(true)
+        mWebView!!.settings.builtInZoomControls = true
+        mWebView!!.settings.displayZoomControls = false
+        mWebView!!.settings.setAppCacheMaxSize( 5 * 1024 * 1024 )
+        mWebView!!.settings.setAppCachePath( requireContext().applicationContext.cacheDir.absolutePath)
+        mWebView!!.settings.allowFileAccess = true
+        mWebView!!.settings.setAppCacheEnabled( true )
+        mWebView!!.settings.cacheMode = WebSettings.LOAD_DEFAULT
+        mWebView!!.setMixedContentAllowed(true)
         mWebView!!.setMixedContentAllowed(true)
         mWebView!!.webViewClient = WebViewClient()
         mWebView!!.webChromeClient = MyChrome(activity)
