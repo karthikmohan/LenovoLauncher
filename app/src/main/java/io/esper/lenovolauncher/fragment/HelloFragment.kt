@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.esper.lenovolauncher.R
@@ -45,7 +46,7 @@ class HelloFragment : Fragment() {
 
     private fun assignHelloData() {
         layoutManager = LinearLayoutManager(ctx)
-        hello_fragment_recycler_view.layoutManager = layoutManager
+        hello_fragment_recycler_view.layoutManager = GridLayoutManager(ctx, 2)
         if(allResults.isNotEmpty()) {
             helloAdapter = HelloAdapter(ctx, allResults)
         } else {
