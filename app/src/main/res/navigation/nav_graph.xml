@@ -13,6 +13,8 @@
         <action
             android:id="@+id/action_MyStayFragment_to_EntertainmentFragment"
             app:destination="@id/entertainment_fragment" />
+        <action android:id="@+id/action_MyStayFragment_to_VideoVisitFragment"
+            app:destination="@id/video_visit_fragment"/>
     </fragment>
     <fragment
         android:id="@+id/entertainment_fragment"
@@ -35,6 +37,15 @@
     <fragment
         android:id="@+id/video_visit_fragment"
         android:name="io.esper.lenovolauncher.fragment.VideoVisitFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_video_visit" />
+        android:label="Video Visit"
+        tools:layout="@layout/fragment_video_visit" >
+        <action
+            android:id="@+id/action_VideoVisitFragment_to_HelloFragment"
+            app:destination="@id/hello_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hello_fragment"
+        android:name="io.esper.lenovolauncher.fragment.HelloFragment"
+        android:label="Hello"
+        tools:layout="@layout/fragment_hello" />
 </navigation>

@@ -7,6 +7,7 @@ class HospitalDbItem : Serializable {
     var patientId: String? = null
     var patientName: String? = null
     var patientRoom: String? = null
+    var patientImage: String? = null
     var careTeam: MutableList<MyCareTeamItem>? = null
     var schedule: MutableList<ScheduleItem>? = null
     var featuredApp: MutableList<FeaturedAppItem>? = null
@@ -17,6 +18,7 @@ class HospitalDbItem : Serializable {
         patientId: String?,
         patientName: String?,
         patientRoom: String?,
+        patientImage: String?,
         careTeam: MutableList<MyCareTeamItem>?,
         schedule: MutableList<ScheduleItem>?,
         featuredApp: MutableList<FeaturedAppItem>?,
@@ -25,6 +27,7 @@ class HospitalDbItem : Serializable {
         this.patientId = patientId
         this.patientName = patientName
         this.patientRoom = patientRoom
+        this.patientImage = patientImage
         this.careTeam = careTeam
         this.schedule = schedule
         this.featuredApp = featuredApp

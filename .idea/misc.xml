@@ -14,10 +14,12 @@
         <entry key="app/src/main/res/layout/activity_slideshow.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/activity_video_viewer.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/approved_apps_item.xml" value="0.14285714285714285" />
+        <entry key="app/src/main/res/layout/featured_apps_item.xml" value="0.3596014492753623" />
         <entry key="app/src/main/res/layout/fragment_calmify.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/fragment_entertainment.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_fourth.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/fragment_hello.xml" value="0.3596014492753623" />
         <entry key="app/src/main/res/layout/fragment_mystay.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_relaxtion.xml" value="0.13496376811594202" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.35885416666666664" />
@@ -27,6 +29,7 @@
         <entry key="app/src/main/res/layout/meal_info_item.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/my_care_team_item.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/my_crew_item.xml" value="0.3596014492753623" />
+        <entry key="app/src/main/res/layout/user_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/video_visit_fragment.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/menu/menu_bottom.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.171" />

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +58,10 @@ class MyStayFragment : Fragment() {
         assignApprovedAppsData()
         assignMealInfoData()
         assignScheduleData()
+
+        video_visit_layout.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_MyStayFragment_to_VideoVisitFragment)
+        }
     }
 
     private fun assignScheduleData() {

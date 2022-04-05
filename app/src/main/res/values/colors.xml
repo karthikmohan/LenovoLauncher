@@ -23,4 +23,5 @@
     <color name="colorAccent">#9E9E9E</color>
     <color name="default_background_dark">#80000000</color>
     <color name="colorTextPrimary">#FFFFFFFF</color>
+    <color name="gold">#FFD700</color>
 </resources>
