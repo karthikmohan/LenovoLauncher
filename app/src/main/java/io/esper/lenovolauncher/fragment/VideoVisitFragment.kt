@@ -143,19 +143,19 @@ class VideoVisitFragment : Fragment(), AdvancedWebView.Listener {
             val resources = request.resources
             when (resources[0]) {
                 PermissionRequest.RESOURCE_AUDIO_CAPTURE -> {
-                    Toast.makeText(activity, "Audio Permission", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, "Audio Permission", Toast.LENGTH_SHORT).show()
                     request.grant(arrayOf(PermissionRequest.RESOURCE_AUDIO_CAPTURE))
                 }
                 PermissionRequest.RESOURCE_MIDI_SYSEX -> {
-                    Toast.makeText(activity, "MIDI Permission", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, "MIDI Permission", Toast.LENGTH_SHORT).show()
                     request.grant(arrayOf(PermissionRequest.RESOURCE_MIDI_SYSEX))
                 }
                 PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID -> {
-                    Toast.makeText(activity, "Encrypted media permission", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, "Encrypted media permission", Toast.LENGTH_SHORT).show()
                     request.grant(arrayOf(PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID))
                 }
                 PermissionRequest.RESOURCE_VIDEO_CAPTURE -> {
-                    Toast.makeText(activity, "Video Permission", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, "Video Permission", Toast.LENGTH_SHORT).show()
                     request.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
                 }
             }
