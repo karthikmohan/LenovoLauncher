@@ -11,6 +11,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
+import io.esper.lenovolauncher.constants.Constants
 import io.esper.lenovolauncher.constants.Constants.FileUtilsTag
 import java.io.*
 import java.util.zip.ZipEntry
@@ -23,16 +24,19 @@ object FileUtils {
         val builder = java.lang.StringBuilder()
         try {
             var jsonString: String?
-            val downloadFolder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-            inputStream = FileInputStream(File(downloadFolder!!.path + "/hospitaldb.json"))
+            val path = Constants.InternalRootFolder + "hospitaldb.json"
+            Log.d("TAG", path)
+            inputStream = FileInputStream(File(path))
             val bufferedReader = BufferedReader(
                 InputStreamReader(inputStream, "UTF-8")
             )
             while (bufferedReader.readLine().also { jsonString = it } != null) {
                 builder.append(jsonString)
             }
+        } catch (e: Exception) {
+            Log.d("TAG", e.message)
         } finally {
-            inputStream?.close()
+                inputStream?.close()
         }
         return String(builder)
     }

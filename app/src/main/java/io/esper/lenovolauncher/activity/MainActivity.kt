@@ -56,24 +56,24 @@ class MainActivity : AppCompatActivity() {
 //    private lateinit var mRunnable: Runnable
 //    private var mTime: Long = 2000
 
-    private val mHidePart2Runnable = Runnable {
-        // Delayed removal of status and navigation bar
-        if (VERSION.SDK_INT >= 30) {
-            binding.greetingText.windowInsetsController!!.hide(
-                WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars()
-            )
-        } else {
-            binding.greetingText.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
-        }
-    }
+//    private val mHidePart2Runnable = Runnable {
+//        // Delayed removal of status and navigation bar
+//        if (VERSION.SDK_INT >= 30) {
+//            binding.greetingText.windowInsetsController!!.hide(
+//                WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars()
+//            )
+//        } else {
+//            binding.greetingText.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+//                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+//                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+//        }
+//    }
 
     private var mVisible = false
-    private val mHideRunnable = Runnable { hide() }
+//    private val mHideRunnable = Runnable { hide() }
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
@@ -152,23 +152,25 @@ class MainActivity : AppCompatActivity() {
         cal.time = date
         val hour = cal[Calendar.HOUR_OF_DAY]
         var greeting: String? = null
-        when {
-            hour in 6..11 -> {
-                greeting = "Good Morning"
+        greeting = when (hour) {
+            in 6..11 -> {
+                "Good Morning"
             }
-            hour in 12..16 -> {
-                greeting = "Good Afternoon"
+            in 12..16 -> {
+                "Good Afternoon"
             }
-            hour in 17..20 -> {
-                greeting = "Good Evening"
+            in 17..20 -> {
+                "Good Evening"
             }
-            hour >= 21 -> {
-                greeting = "Good Night"
+            else -> {
+                "Good Night"
             }
         }
-        if (sharedPrefManaged?.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME, null) != null)
+        if (sharedPrefManaged?.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME, null) != null) {
             binding.greetingText.text =
-                "$greeting, " + sharedPrefManaged!!.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME, null) + " !"
+                "$greeting, " + sharedPrefManaged!!.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME,
+                    null) + " !"
+        }
         else
             binding.greetingText.text = "$greeting !"
     }
@@ -184,48 +186,59 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100)
-    }
+//    override fun onPostCreate(savedInstanceState: Bundle?) {
+//        super.onPostCreate(savedInstanceState)
+//
+//        // Trigger the initial hide() shortly after the activity has been
+//        // created, to briefly hint to the user that UI controls
+//        // are available.
+//        delayedHide(100)
+//    }
 
     private fun preInit() {
+        hideNavAndStatusBar()
         initSharedPrefs(this)
         initNetworkConfigs()
         initPremissions(this)
         initManagedConfig(this)
     }
 
-    override fun onResume() {
-        mHideHandler.postDelayed(Runnable {
-            runnable?.let { mHideHandler.postDelayed(it, delay.toLong()) }
-            hide()
-        }.also { runnable = it }, delay.toLong())
-        super.onResume()
+    private fun hideNavAndStatusBar() {
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN)
     }
 
-    private fun hide() {
-        // Hide UI first
-        val actionBar = supportActionBar
-        actionBar?.hide()
-        mVisible = false
+//    override fun onResume() {
+//        mHideHandler.postDelayed(Runnable {
+//            runnable?.let { mHideHandler.postDelayed(it, delay.toLong()) }
+//            hide()
+//        }.also { runnable = it }, delay.toLong())
+//        super.onResume()
+//    }
 
-        // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY.toLong())
-    }
+//    private fun hide() {
+//        // Hide UI first
+//        val actionBar = supportActionBar
+//        actionBar?.hide()
+//        mVisible = false
+//
+//        // Schedule a runnable to remove the status and navigation bar after a delay
+//        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY.toLong())
+//    }
 
-    /**
-     * Schedules a call to hide() in delay milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private fun delayedHide(delayMillis: Int) {
-        mHideHandler.removeCallbacks(mHideRunnable)
-        mHideHandler.postDelayed(mHideRunnable, delayMillis.toLong())
-    }
+//    /**
+//     * Schedules a call to hide() in delay milliseconds, canceling any
+//     * previously scheduled calls.
+//     */
+//    private fun delayedHide(delayMillis: Int) {
+//        mHideHandler.removeCallbacks(mHideRunnable)
+//        mHideHandler.postDelayed(mHideRunnable, delayMillis.toLong())
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: RefreshNeeded) {
