@@ -6,13 +6,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.os.Build.VERSION
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.view.WindowInsets
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
@@ -73,7 +71,8 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     private var mVisible = false
-//    private val mHideRunnable = Runnable { hide() }
+
+    //    private val mHideRunnable = Runnable { hide() }
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
@@ -108,17 +107,24 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun roomAndIdSetter() {
+        if (sharedPrefManaged != null)
+            sharedPrefManaged =
+                getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
         if (sharedPrefManaged?.getString(
                 Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM,
                 null
-            ) != null && sharedPrefManaged?.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID, null) != null
+            ) != null && sharedPrefManaged?.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                null) != null
         )
             binding.greetingText2.text = "Room No.: ${
                 sharedPrefManaged?.getString(
                     Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM,
                     null
                 )
-            } | " + "ID: ${sharedPrefManaged?.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID, null)}"
+            } | " + "ID: ${
+                sharedPrefManaged?.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                    null)
+            }"
         else
             binding.greetingText2.text = ""
     }
@@ -150,9 +156,7 @@ class MainActivity : AppCompatActivity() {
         val date = Date()
         val cal = Calendar.getInstance()
         cal.time = date
-        val hour = cal[Calendar.HOUR_OF_DAY]
-        var greeting: String? = null
-        greeting = when (hour) {
+        val greeting = when (cal[Calendar.HOUR_OF_DAY]) {
             in 6..11 -> {
                 "Good Morning"
             }
@@ -166,13 +170,21 @@ class MainActivity : AppCompatActivity() {
                 "Good Night"
             }
         }
-        if (sharedPrefManaged?.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME, null) != null) {
+        if (sharedPrefManaged != null)
+            sharedPrefManaged =
+                getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
+
+        if (sharedPrefManaged?.getString(
+                Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                null
+            ) != null
+        ) {
             binding.greetingText.text =
                 "$greeting, " + sharedPrefManaged!!.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME,
                     null) + " !"
-        }
-        else
+        } else {
             binding.greetingText.text = "$greeting !"
+        }
     }
 
     private fun setupSmoothBottomMenu() {
@@ -271,7 +283,10 @@ class MainActivity : AppCompatActivity() {
                 DiskCacheStrategy.ALL
             ).placeholder(R.drawable.bg2)
                 .priority(Priority.HIGH).into(object : CustomTarget<Drawable?>() {
-                    override fun onResourceReady(resource: Drawable, @Nullable transition: Transition<in Drawable?>?) {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        @Nullable transition: Transition<in Drawable?>?,
+                    ) {
                         main_layout.background = resource
                     }
 
@@ -284,7 +299,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun savePatientNameAndRoom() {
         for (i in 0 until allResults.size) {
-            sharedPrefManaged = getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
+            sharedPrefManaged =
+                getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
             if (sharedPrefManaged?.getString(
                     Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
                     null
@@ -293,8 +309,10 @@ class MainActivity : AppCompatActivity() {
                     null
                 )
             ) {
-                sharedPrefManaged!!.edit().putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME, allResults[i].patientName)
-                    .putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM, allResults[i].patientRoom).apply()
+                sharedPrefManaged!!.edit().putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME,
+                    allResults[i].patientName)
+                    .putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM,
+                        allResults[i].patientRoom).apply()
                 break
             }
         }
