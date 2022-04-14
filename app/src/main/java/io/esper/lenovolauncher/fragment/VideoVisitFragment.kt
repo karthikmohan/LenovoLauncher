@@ -58,7 +58,7 @@ class VideoVisitFragment : Fragment(), AdvancedWebView.Listener {
         mWebView.settings.setAppCacheEnabled(true)
         mWebView.settings.cacheMode = WebSettings.LOAD_DEFAULT
         mWebView.setMixedContentAllowed(true)
-        mWebView.setMixedContentAllowed(true)
+        mWebView.setListener(activity, this)
         mWebView.webViewClient = WebViewClient()
         mWebView.webChromeClient = MyChrome(activity)
         val webSettings = mWebView.settings
@@ -97,14 +97,14 @@ class VideoVisitFragment : Fragment(), AdvancedWebView.Listener {
         ctx = context
     }
 
-    override fun onPageStarted(url: String, favicon: Bitmap) {
-        mWebView.visibility = View.GONE
-        loading.visibility = View.VISIBLE
+    override fun onPageStarted(url: String?, favicon: Bitmap?) {
+
     }
-    override fun onPageFinished(url: String) {
-        mWebView.visibility = View.VISIBLE
+
+    override fun onPageFinished(url: String?) {
         loading.visibility = View.GONE
     }
+
     override fun onPageError(errorCode: Int, description: String, failingUrl: String) {}
     override fun onDownloadRequested(
         url: String,
@@ -199,7 +199,9 @@ class VideoVisitFragment : Fragment(), AdvancedWebView.Listener {
                 null) != null && sharedPrefManaged!!.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME,
                 null) != null
         ) {
+            mWebView.visibility = View.VISIBLE
             featureNotAvailable.visibility = View.GONE
+            loading.visibility = View.VISIBLE
             mWebView.loadUrl(
                 "https://meet.jit.si/" + sharedPrefManaged!!.getString(
                     Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
@@ -208,6 +210,7 @@ class VideoVisitFragment : Fragment(), AdvancedWebView.Listener {
             )
         } else {
             mWebView.visibility = View.GONE
+            loading.visibility = View.GONE
             featureNotAvailable.visibility = View.VISIBLE
         }
     }

@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,7 @@ class RelaxationFragment : Fragment(), AdvancedWebView.Listener {
         mWebView.settings.setAppCacheEnabled(true)
         mWebView.settings.cacheMode = WebSettings.LOAD_DEFAULT
         mWebView.setMixedContentAllowed(true)
+        mWebView.setListener(activity, this)
         mWebView.webChromeClient = MyChrome(activity)
         val webSettings = mWebView.settings
         webSettings.javaScriptEnabled = true
@@ -75,10 +77,13 @@ class RelaxationFragment : Fragment(), AdvancedWebView.Listener {
                 null) != null && Constants.sharedPrefManaged!!.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME,
                 null) != null
         ) {
+            mWebView.visibility = View.VISIBLE
             featureNotAvailable.visibility = View.GONE
+            loading.visibility = View.VISIBLE
             mWebView.loadUrl("https://insighttimer.com/meditation-topics/relax")
         } else {
             mWebView.visibility = View.GONE
+            loading.visibility = View.GONE
             featureNotAvailable.visibility = View.VISIBLE
         }
 
@@ -111,14 +116,13 @@ class RelaxationFragment : Fragment(), AdvancedWebView.Listener {
         mWebView.onActivityResult(requestCode, resultCode, intent)
     }
 
-    override fun onPageStarted(url: String, favicon: Bitmap) {
-        mWebView.visibility = View.GONE
-        loading.visibility = View.VISIBLE
+    override fun onPageStarted(url: String?, favicon: Bitmap?) {
     }
 
-    override fun onPageFinished(url: String) {
-        mWebView.visibility = View.VISIBLE
+    override fun onPageFinished(url: String?) {
         loading.visibility = View.GONE
+
+        Log.i("TAG", "onPageStarted: $url");
     }
 
     override fun onPageError(errorCode: Int, description: String, failingUrl: String) {
