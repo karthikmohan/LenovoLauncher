@@ -16,14 +16,16 @@ object ManagedConfigUtils {
     private var endpoint: String? = null
     private var patientId: String? = null
     private var launcherWallpaper: String? = null
+    private var sampleData: Boolean? = null
     private var kioskSlideshowImageStrategy: Int = 1
     private var kioskSlideshowDelay: Int = 3
     private var kioskSlideshowPath: String = InternalRootFolder
     private var kioskSlideshow: Boolean = false
 
-    private var changeInValue: Boolean = false
-
-    private fun startManagedConfigValuesReceiver(activity: MainActivity, sharedPrefManaged: SharedPreferences) {
+    private fun startManagedConfigValuesReceiver(
+        activity: MainActivity,
+        sharedPrefManaged: SharedPreferences,
+    ) {
         val myRestrictionsMgr =
             activity.getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
         val restrictionsFilter = IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED)
@@ -82,9 +84,14 @@ object ManagedConfigUtils {
             appRestrictions.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID)
                 .toString() else null
 
-        launcherWallpaper = if (appRestrictions.containsKey(Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER))
-            appRestrictions.getString(Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER)
-                .toString() else null
+        launcherWallpaper =
+            if (appRestrictions.containsKey(Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER))
+                appRestrictions.getString(Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER)
+                    .toString() else null
+
+        sampleData =
+            if (appRestrictions.containsKey(Constants.SHARED_MANAGED_CONFIG_SAMPLE_DATA))
+                appRestrictions.getBoolean(Constants.SHARED_MANAGED_CONFIG_SAMPLE_DATA) else false
 
         endpoint =
             if (appRestrictions.containsKey(Constants.SHARED_MANAGED_CONFIG_ENDPOINT))
@@ -101,7 +108,8 @@ object ManagedConfigUtils {
 
     private fun savingInSharedPrefs(activity: MainActivity, sharedPrefManaged: SharedPreferences) {
 
-        sharedPrefManaged.edit().putBoolean(Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW, kioskSlideshow)
+        sharedPrefManaged.edit()
+            .putBoolean(Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW, kioskSlideshow)
             .apply()
         sharedPrefManaged.edit().putString(
             Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW_PATH,
@@ -118,14 +126,32 @@ object ManagedConfigUtils {
         if (sharedPrefManaged.getBoolean(Constants.SHARED_MANAGED_CONFIG_KIOSK_SLIDESHOW, false))
             activity.startActivity(Intent(activity, SlideshowActivity::class.java))
 
-        if (patientId != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID, null)) {
-            sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID, patientId).apply()
+        if (patientId != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                null)
+        ) {
+            sharedPrefManaged.edit()
+                .putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ID, patientId).apply()
             EventBus.getDefault().post(MainActivity.RefreshNeeded("ui"))
         }
 
-        if (launcherWallpaper != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER, null)) {
-            sharedPrefManaged.edit().putString(Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER, launcherWallpaper).apply()
+        if (launcherWallpaper != sharedPrefManaged.getString(Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER,
+                null)
+        ) {
+            sharedPrefManaged.edit()
+                .putString(Constants.SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER, launcherWallpaper)
+                .apply()
             EventBus.getDefault().post(MainActivity.RefreshNeeded("wallpaper"))
+        }
+
+        if (sampleData != sharedPrefManaged.getBoolean(Constants.SHARED_MANAGED_CONFIG_SAMPLE_DATA,
+                false)
+        ) {
+            sampleData?.let {
+                sharedPrefManaged.edit()
+                    .putBoolean(Constants.SHARED_MANAGED_CONFIG_SAMPLE_DATA, it)
+                    .apply()
+            }
+            EventBus.getDefault().post(MainActivity.RefreshNeeded("ui"))
         }
 
         if (!endpoint.isNullOrEmpty() && !enterpriseId.isNullOrEmpty() && !apiKey.isNullOrEmpty()) {

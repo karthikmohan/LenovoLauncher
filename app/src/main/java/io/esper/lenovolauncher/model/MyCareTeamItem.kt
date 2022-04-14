@@ -14,7 +14,7 @@ class MyCareTeamItem : Serializable {
         id: String?,
         name: String?,
         designation: String?,
-        image: String?
+        image: String?,
     ) {
         this.id = id
         this.name = name

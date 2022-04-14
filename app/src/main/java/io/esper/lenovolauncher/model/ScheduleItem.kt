@@ -12,7 +12,7 @@ class ScheduleItem : Serializable {
     constructor(
         dateTime: String?,
         meetingTitle: String?,
-        meetingLocation: String?
+        meetingLocation: String?,
     ) {
         this.dateTime = dateTime
         this.meetingTitle = meetingTitle

@@ -65,7 +65,7 @@ class GlideImageStrategy : ImageStrategy {
                     e: GlideException?,
                     model: Any?,
                     target: Target<Drawable>?,
-                    isFirstResource: Boolean
+                    isFirstResource: Boolean,
                 ): Boolean {
                     view.setImageResource(R.drawable.broken_file)
                     return true
@@ -76,7 +76,7 @@ class GlideImageStrategy : ImageStrategy {
                     model: Any?,
                     target: Target<Drawable>?,
                     dataSource: DataSource?,
-                    isFirstResource: Boolean
+                    isFirstResource: Boolean,
                 ): Boolean {
                     callback!!.queueSlide()
                     return false
@@ -98,7 +98,7 @@ class GlideImageStrategy : ImageStrategy {
                     e: GlideException?,
                     model: Any?,
                     target: Target<GifDrawable>,
-                    isFirstResource: Boolean
+                    isFirstResource: Boolean,
                 ): Boolean {
                     view.setImageResource(R.drawable.broken_file)
                     return true
@@ -109,7 +109,7 @@ class GlideImageStrategy : ImageStrategy {
                     model: Any?,
                     target: Target<GifDrawable>,
                     dataSource: DataSource?,
-                    isFirstResource: Boolean
+                    isFirstResource: Boolean,
                 ): Boolean {
                     callback!!.queueSlide(250)
                     return false

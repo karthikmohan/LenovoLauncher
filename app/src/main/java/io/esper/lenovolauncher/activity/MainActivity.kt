@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.View
@@ -30,7 +29,10 @@ import io.esper.lenovolauncher.constants.Constants
 import io.esper.lenovolauncher.constants.Constants.allResults
 import io.esper.lenovolauncher.constants.Constants.sharedPrefManaged
 import io.esper.lenovolauncher.databinding.ActivityMainBinding
+import io.esper.lenovolauncher.fragment.HelloFragment
 import io.esper.lenovolauncher.fragment.MyStayFragment
+import io.esper.lenovolauncher.fragment.RelaxationFragment
+import io.esper.lenovolauncher.fragment.VideoVisitFragment
 import io.esper.lenovolauncher.model.HospitalDbItem
 import io.esper.lenovolauncher.utils.FileUtils
 import io.esper.lenovolauncher.utils.GeneralUtils.initManagedConfig
@@ -48,7 +50,7 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private val mHideHandler = Handler()
+//    private val mHideHandler = Handler()
 
 //    private lateinit var mHandler: Handler
 //    private lateinit var mRunnable: Runnable
@@ -175,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                 getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
 
         if (sharedPrefManaged?.getString(
-                Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME,
                 null
             ) != null
         ) {
@@ -261,7 +263,16 @@ class MainActivity : AppCompatActivity() {
             greetingSetter()
             roomAndIdSetter()
             EventBus.getDefault().post(
-                MyStayFragment.RefreshNeededInFragment("ui")
+                MyStayFragment.RefreshNeededInFragment()
+            )
+            EventBus.getDefault().post(
+                VideoVisitFragment.RefreshNeededInFragment()
+            )
+            EventBus.getDefault().post(
+                RelaxationFragment.RefreshNeededInFragment()
+            )
+            EventBus.getDefault().post(
+                HelloFragment.RefreshNeededInFragment()
             )
         } else if (event.refresh == "wallpaper") {
             wallpaperSetter()
@@ -298,23 +309,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun savePatientNameAndRoom() {
-        for (i in 0 until allResults.size) {
-            sharedPrefManaged =
-                getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
-            if (sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                ) != null && allResults[i].patientId == sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                )
-            ) {
-                sharedPrefManaged!!.edit().putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME,
-                    allResults[i].patientName)
-                    .putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM,
-                        allResults[i].patientRoom).apply()
-                break
+        if (!allResults.isNullOrEmpty()) {
+            for (i in 0 until allResults!!.size) {
+                sharedPrefManaged =
+                    getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES,
+                        Context.MODE_PRIVATE)
+                if (sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    ) != null && allResults!![i].patientId == sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    )
+                ) {
+                    sharedPrefManaged!!.edit()
+                        .putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME,
+                            allResults!![i].patientName)
+                        .putString(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM,
+                            allResults!![i].patientRoom).apply()
+                    break
+                } else {
+                    sharedPrefManaged!!.edit().remove(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME)
+                        .remove(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM).apply()
+                }
             }
+        } else {
+            sharedPrefManaged!!.edit().remove(Constants.SHARED_MANAGED_CONFIG_PATIENT_NAME)
+                .remove(Constants.SHARED_MANAGED_CONFIG_PATIENT_ROOM).apply()
         }
     }
 
@@ -333,21 +354,30 @@ class MainActivity : AppCompatActivity() {
     companion object {
         fun addItemsFromJSON(context: Context) {
             try {
-                val jsonDataString = FileUtils.readJSONDataFromFile(context)
+                if (sharedPrefManaged == null) {
+                    sharedPrefManaged =
+                        context.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES,
+                            Context.MODE_PRIVATE)
+                }
+                val jsonDataString = FileUtils.readJSONDataFromFile(context,
+                    sharedPrefManaged!!.getBoolean(Constants.SHARED_MANAGED_CONFIG_SAMPLE_DATA,
+                        false))
                 val collectionType: Type = object : TypeToken<List<HospitalDbItem?>?>() {}.type
-                allResults = Gson()
-                    .fromJson(jsonDataString, collectionType) as MutableList<HospitalDbItem>
+                if (jsonDataString.isNotEmpty()) {
+                    allResults = Gson()
+                        .fromJson(jsonDataString, collectionType)
+                }
             } catch (e: JSONException) {
-                Log.d(Constants.MyStayFragmentTag, "addItemsFromJSON: ", e)
+                Log.d(Constants.MainActivityTag, "addItemsFromJSON: ", e)
             } catch (e: IOException) {
-                Log.d(Constants.MyStayFragmentTag, "addItemsFromJSON: ", e)
+                Log.d(Constants.MainActivityTag, "addItemsFromJSON: ", e)
             }
         }
 
-        private const val AUTO_HIDE = true
-        private const val AUTO_HIDE_DELAY_MILLIS = 3000
-        private const val UI_ANIMATION_DELAY = 300
-        private var runnable: Runnable? = null
-        private var delay = 3000
+//        private const val AUTO_HIDE = true
+//        private const val AUTO_HIDE_DELAY_MILLIS = 3000
+//        private const val UI_ANIMATION_DELAY = 300
+//        private var runnable: Runnable? = null
+//        private var delay = 3000
     }
 }

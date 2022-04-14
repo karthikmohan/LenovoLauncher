@@ -72,7 +72,8 @@ object GeneralUtils {
 
     @JvmStatic
     fun initSharedPrefs(context: Context) {
-        sharedPrefManaged = context.getSharedPreferences(SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
+        sharedPrefManaged =
+            context.getSharedPreferences(SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
     }
 
     @JvmStatic
@@ -84,7 +85,8 @@ object GeneralUtils {
 
     @JvmStatic
     fun initPremissions(context: Context) {
-        if (VERSION.SDK_INT >= Build.VERSION_CODES.M && !checkPermission(context)) requestPermission(context)
+        if (VERSION.SDK_INT >= Build.VERSION_CODES.M && !checkPermission(context)) requestPermission(
+            context)
     }
 
     private fun checkPermission(context: Context): Boolean {
@@ -120,7 +122,9 @@ object GeneralUtils {
             val i: Intent = ctx.packageManager.getLaunchIntentForPackage(packageName)!!
             ctx.startActivity(i)
         } catch (e: Exception) {
-            Toast.makeText(ctx, "Sorry, this app is not available. Please contact administrator!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(ctx,
+                "Sorry, this app is not available. Please contact administrator!",
+                Toast.LENGTH_SHORT).show()
         }
     }
 }

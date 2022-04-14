@@ -40,7 +40,7 @@ object Constants {
 
     const val SHARED_PREF_DEVICE_ID = "deviceId"
 
-    var allResults: MutableList<HospitalDbItem> = ArrayList()
+    var allResults: MutableList<HospitalDbItem>? = ArrayList()
 
     //SharedPref
     @kotlin.jvm.JvmField
@@ -63,6 +63,7 @@ object Constants {
     const val SHARED_MANAGED_CONFIG_PATIENT_NAME = "patient_name"
     const val SHARED_MANAGED_CONFIG_PATIENT_ROOM = "patient_room"
     const val SHARED_MANAGED_CONFIG_LAUNCHER_WALLPAPER = "launcher_wallpaper"
+    const val SHARED_MANAGED_CONFIG_SAMPLE_DATA = "sample_data"
 
     // Esper Specific
     const val SHARED_MANAGED_CONFIG_ENDPOINT = "endpoint"

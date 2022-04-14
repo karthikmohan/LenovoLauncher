@@ -290,7 +290,7 @@ class SlideshowActivity : AppCompatActivity(), ImageStrategy.ImageStrategyCallba
      */
     private fun getFileList(
         currentPath: String, includeDirectories: Boolean,
-        includeSubDirectories: Boolean
+        includeSubDirectories: Boolean,
     ): MutableList<FileItem?> {
         Log.d(SlideShowActivityTag, "updateFileList currentPath: $currentPath")
 

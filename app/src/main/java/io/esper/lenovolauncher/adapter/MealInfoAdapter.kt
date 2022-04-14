@@ -10,7 +10,10 @@ import io.esper.lenovolauncher.R
 import io.esper.lenovolauncher.model.MealInfoItem
 
 
-class MealInfoAdapter(private val context: Context, private val mealInfoItem: MutableList<MealInfoItem>?) :
+class MealInfoAdapter(
+    private val context: Context,
+    private val mealInfoItem: MutableList<MealInfoItem>?,
+) :
     RecyclerView.Adapter<MealInfoAdapter.MyViewHolder>() {
 
     private var mContext: Context? = null
@@ -18,7 +21,7 @@ class MealInfoAdapter(private val context: Context, private val mealInfoItem: Mu
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): MyViewHolder {
         mContext = context
         val view: View = inflater.inflate(R.layout.meal_info_item, parent, false)
@@ -27,7 +30,7 @@ class MealInfoAdapter(private val context: Context, private val mealInfoItem: Mu
 
     override fun onBindViewHolder(
         holder: MyViewHolder,
-        position: Int
+        position: Int,
     ) {
 
         holder.mealTiming.text = mealInfoItem!![position].mealTiming

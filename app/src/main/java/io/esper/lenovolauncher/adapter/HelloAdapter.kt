@@ -13,7 +13,10 @@ import io.esper.lenovolauncher.R
 import io.esper.lenovolauncher.model.HospitalDbItem
 
 
-class HelloAdapter(private val context: Context, private val hospitalDbItem: MutableList<HospitalDbItem>) :
+class HelloAdapter(
+    private val context: Context,
+    private val hospitalDbItem: MutableList<HospitalDbItem>,
+) :
     RecyclerView.Adapter<HelloAdapter.MyViewHolder>() {
 
     private var mContext: Context? = null
@@ -21,7 +24,7 @@ class HelloAdapter(private val context: Context, private val hospitalDbItem: Mut
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): MyViewHolder {
         mContext = context
         val view: View = inflater.inflate(R.layout.user_item, parent, false)
@@ -30,7 +33,7 @@ class HelloAdapter(private val context: Context, private val hospitalDbItem: Mut
 
     override fun onBindViewHolder(
         holder: MyViewHolder,
-        position: Int
+        position: Int,
     ) {
 
         holder.name.text = hospitalDbItem[position].patientName

@@ -15,7 +15,10 @@ import io.esper.lenovolauncher.model.FeaturedAppItem
 import io.esper.lenovolauncher.utils.GeneralUtils.openApp
 
 
-class FeaturedAppAdapter(private val context: Context, private val featuredAppItem: MutableList<FeaturedAppItem>?) :
+class FeaturedAppAdapter(
+    private val context: Context,
+    private val featuredAppItem: MutableList<FeaturedAppItem>?,
+) :
     RecyclerView.Adapter<FeaturedAppAdapter.MyViewHolder>() {
 
     private var mContext: Context? = null
@@ -23,7 +26,7 @@ class FeaturedAppAdapter(private val context: Context, private val featuredAppIt
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): MyViewHolder {
         mContext = context
         val view: View = inflater.inflate(R.layout.featured_apps_item, parent, false)
@@ -32,7 +35,7 @@ class FeaturedAppAdapter(private val context: Context, private val featuredAppIt
 
     override fun onBindViewHolder(
         holder: MyViewHolder,
-        position: Int
+        position: Int,
     ) {
 
         holder.name.text = featuredAppItem!![position].appName

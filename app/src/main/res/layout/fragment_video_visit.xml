@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<im.delight.android.webview.AdvancedWebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/webview_video_visit"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <im.delight.android.webview.AdvancedWebView
+        android:id="@+id/webview_video_visit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/feature_not_available_video_visit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/this_feature_is_not_available_for_you_yet_please_contact_administrator"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/feature_loading_video_visit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/loading_please_wait"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+</LinearLayout>

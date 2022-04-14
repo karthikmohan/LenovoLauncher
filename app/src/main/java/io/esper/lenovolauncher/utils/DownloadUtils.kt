@@ -25,7 +25,7 @@ object DownloadUtils {
         downloadTxt: TextView,
         fileName: String,
         id: Int,
-        downloadBtn: LinearLayout
+        downloadBtn: LinearLayout,
     ) {
         var prevProgress = 0
         initFileDownloader(mContext)
@@ -65,9 +65,11 @@ object DownloadUtils {
                         "Download Error : Response Code :${error!!.responseCode} and Message :${error.serverErrorMessage}"
                     )
                     if (error.isServerError)
-                        Log.d(DownloadUtilsTag, "Download Error : Server issue: ${error.isServerError}")
+                        Log.d(DownloadUtilsTag,
+                            "Download Error : Server issue: ${error.isServerError}")
                     if (error.isConnectionError)
-                        Log.d(DownloadUtilsTag, "Download Error : Connection issue: ${error.isConnectionError}")
+                        Log.d(DownloadUtilsTag,
+                            "Download Error : Connection issue: ${error.isConnectionError}")
 
 //                        downloadImg.setImageResource(R.drawable.ic_cloud_download)
                 }

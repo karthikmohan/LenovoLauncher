@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/hello_fragment_recycler_view"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:background="#50000000"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hello_fragment_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/feature_not_available_hello"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/this_feature_is_not_available_for_you_yet_please_contact_administrator"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:visibility="gone" />
+</LinearLayout>

@@ -22,7 +22,7 @@ class HospitalDbItem : Serializable {
         careTeam: MutableList<MyCareTeamItem>?,
         schedule: MutableList<ScheduleItem>?,
         featuredApp: MutableList<FeaturedAppItem>?,
-        mealInfo: MutableList<MealInfoItem>?
+        mealInfo: MutableList<MealInfoItem>?,
     ) {
         this.patientId = patientId
         this.patientName = patientName

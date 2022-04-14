@@ -13,7 +13,10 @@ import io.esper.lenovolauncher.R
 import io.esper.lenovolauncher.model.MyCareTeamItem
 
 
-class MyCareTeamAdapter(private val context: Context, private val careTeamItem: MutableList<MyCareTeamItem>?) :
+class MyCareTeamAdapter(
+    private val context: Context,
+    private val careTeamItem: MutableList<MyCareTeamItem>?,
+) :
     RecyclerView.Adapter<MyCareTeamAdapter.MyViewHolder>() {
 
     private var mContext: Context? = null
@@ -21,7 +24,7 @@ class MyCareTeamAdapter(private val context: Context, private val careTeamItem: 
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): MyViewHolder {
         mContext = context
         val view: View = inflater.inflate(R.layout.my_care_team_item, parent, false)
@@ -30,7 +33,7 @@ class MyCareTeamAdapter(private val context: Context, private val careTeamItem: 
 
     override fun onBindViewHolder(
         holder: MyViewHolder,
-        position: Int
+        position: Int,
     ) {
 
         holder.name.text = careTeamItem!![position].name

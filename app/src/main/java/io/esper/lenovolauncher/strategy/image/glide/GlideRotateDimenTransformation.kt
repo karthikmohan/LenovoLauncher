@@ -12,7 +12,7 @@ class GlideRotateDimenTransformation : BitmapTransformation() {
         pool: BitmapPool,
         toTransform: Bitmap,
         outWidth: Int,
-        outHeight: Int
+        outHeight: Int,
     ): Bitmap {
         Log.d(TAG, String.format("Height: %d Width: %d", toTransform.height, toTransform.width))
         if (toTransform.height >= toTransform.width) {

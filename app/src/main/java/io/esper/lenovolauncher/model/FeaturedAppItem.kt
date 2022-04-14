@@ -12,7 +12,7 @@ class FeaturedAppItem : Serializable {
     constructor(
         app_name: String?,
         package_name: String?,
-        app_icon: String?
+        app_icon: String?,
     ) {
         this.appName = app_name
         this.packageName = package_name

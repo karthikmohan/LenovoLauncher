@@ -16,7 +16,7 @@ class EntertainmentFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_entertainment, container, false)
@@ -31,9 +31,19 @@ class EntertainmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         netflix.setOnClickListener { ctx?.let { it1 -> openApp(it1, "com.netflix.mediaclient") } }
-        youtube.setOnClickListener { ctx?.let { it1 -> openApp(it1, "com.google.android.youtube") } }
+        youtube.setOnClickListener {
+            ctx?.let { it1 ->
+                openApp(it1,
+                    "com.google.android.youtube")
+            }
+        }
         hulu.setOnClickListener { ctx?.let { it1 -> openApp(it1, "com.hulu.plus") } }
-        primevideo.setOnClickListener { ctx?.let { it1 -> openApp(it1, "com.amazon.avod.thirdpartyclient") } }
+        primevideo.setOnClickListener {
+            ctx?.let { it1 ->
+                openApp(it1,
+                    "com.amazon.avod.thirdpartyclient")
+            }
+        }
         disney.setOnClickListener { ctx?.let { it1 -> openApp(it1, "com.disney.disneyplus") } }
         hbomax.setOnClickListener { ctx?.let { it1 -> openApp(it1, "com.hbo.hbonow") } }
     }

@@ -1,0 +1,139 @@
+[
+  {
+    "patientId": "202201",
+    "patientName": "Esper Ortu",
+    "patientRoom": "208",
+    "careTeam": [
+      {
+        "id": 23,
+        "name": "Dr. Stephen",
+        "designation": "Senior General Physician",
+        "image": "https://thevideoink.com/wp-content/uploads/2021/11/wysiwyg-uploads_1569586526901-doctor.jpg"
+      },
+      {
+        "id": 24,
+        "name": "Nancy Drew",
+        "designation": "Attending Nurse",
+        "image": "https://media.istockphoto.com/photos/portrait-of-friendly-nurse-smiling-at-hospital-picture-id1346124946?b=1&k=20&m=1346124946&s=170667a&w=0&h=__AFEjgssqMgCej89JWaXwbV42Jy_u8Vp9yBypOAG5Q="
+      },
+      {
+        "id": 25,
+        "name": "Velma Dinkley",
+        "designation": "Secondary Nurse",
+        "image": "https://media.istockphoto.com/photos/portrait-of-young-adult-female-healthcare-professional-stock-photo-picture-id1196443138?k=20&m=1196443138&s=612x612&w=0&h=NjZLPEB5-ZOvVINy5L4sO2oTZ2c-A2-XvD8_oqJYqdU="
+      }
+    ],
+    "schedule": [
+      {
+        "dateTime": "10:10pm",
+        "meetingTitle": "Occupation Therapy",
+        "meetingLocation": "Room 204, Main Building"
+      },
+      {
+        "dateTime": "03:10pm",
+        "meetingTitle": "General Checkup",
+        "meetingLocation": "Room 208"
+      }
+    ],
+    "featuredApp": [
+      {
+        "appName": "Chrome",
+        "packageName": "com.android.chrome",
+        "appIcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/2048px-Google_Chrome_icon_%28September_2014%29.svg.png"
+      },
+      {
+        "appName": "Maps",
+        "packageName": "com.google.android.apps.maps",
+        "appIcon": "https://cdn-icons-png.flaticon.com/512/355/355980.png"
+      }
+    ],
+    "mealInfo": [
+      {
+        "mealTiming": "Breakfast",
+        "meal": "Porridge"
+      },
+      {
+        "mealTiming": "Lunch",
+        "meal": "Salad"
+      },
+      {
+        "mealTiming": "Dinner",
+        "meal": "Fruits"
+      }
+    ]
+  },
+  {
+    "patientId": "202101",
+    "patientName": "Esper Andi",
+    "patientRoom": "208",
+    "careTeam": [
+      {
+        "id": 27,
+        "name": "Dr. Velma",
+        "designation": "General Physician",
+        "image": "https://media.istockphoto.com/photos/portrait-of-young-adult-female-healthcare-professional-stock-photo-picture-id1196443138?k=20&m=1196443138&s=612x612&w=0&h=NjZLPEB5-ZOvVINy5L4sO2oTZ2c-A2-XvD8_oqJYqdU="
+      }
+    ],
+    "schedule": [
+      {
+        "dateTime": "10:10pm",
+        "meetingTitle": "Occupation Therapy",
+        "meetingLocation": "Room 204, Main Building"
+      },
+      {
+        "dateTime": "08:50pm",
+        "meetingTitle": "General Checkup",
+        "meetingLocation": "Room 208"
+      }
+    ],
+    "featuredApp": [
+      {
+        "appName": "Chrome",
+        "packageName": "com.android.chrome",
+        "appIcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/2048px-Google_Chrome_icon_%28September_2014%29.svg.png"
+      },
+      {
+        "appName": "Maps",
+        "packageName": "com.google.android.apps.maps",
+        "appIcon": "https://cdn-icons-png.flaticon.com/512/355/355980.png"
+      }
+    ],
+    "mealInfo": [
+      {
+        "mealTiming": "Breakfast",
+        "meal": "Cereal"
+      },
+      {
+        "mealTiming": "Lunch",
+        "meal": " - "
+      },
+      {
+        "mealTiming": "Dinner",
+        "meal": " - "
+      }
+    ]
+  },
+  {
+    "patientId": "202100",
+    "patientName": "Esper Cake",
+    "patientRoom": "208",
+    "careTeam": [
+    ],
+    "schedule": [
+    ],
+    "featuredApp": [
+      {
+        "appName": "Chrome",
+        "packageName": "com.android.chrome",
+        "appIcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/2048px-Google_Chrome_icon_%28September_2014%29.svg.png"
+      },
+      {
+        "appName": "Moviesy",
+        "packageName": "com.kpstv.yts",
+        "appIcon": "https://scapi-sharedorgn2-static-and-media-files.s3.amazonaws.com/a6f1469b-b4ca-4c63-b52f-84e4d9be1c1f/apps/icons/eb35d834-2c9a-4188-8776-fdd10bdff43d-Moviesy-2.0.4_3bad5438-89f4-4e1d-bdb0-b880fbd7bb82.png?AWSAccessKeyId=AKIA6FKBZSTAREW4WWV6&Signature=z6Magn%2FjjnQ6QfWfZFpX9VI3QA0%3D&Expires=1649393969"
+      }
+    ],
+    "mealInfo": [
+    ]
+  }
+]

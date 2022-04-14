@@ -15,7 +15,9 @@
     </style>
 
     <style name="Theme.LenovoLauncher.Fullscreen" parent="Theme.LenovoLauncher">
-        <item name="android:actionBarStyle">@style/Widget.Theme.LenovoLauncher.ActionBar.Fullscreen</item>
+        <item name="android:actionBarStyle">
+            @style/Widget.Theme.LenovoLauncher.ActionBar.Fullscreen
+        </item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@null</item>
     </style>

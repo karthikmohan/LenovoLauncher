@@ -1,7 +1,11 @@
+@file:Suppress("NAME_SHADOWING")
+
 package io.esper.lenovolauncher.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +44,7 @@ class MyStayFragment : Fragment() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_mystay, container, false)
@@ -53,139 +57,170 @@ class MyStayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainActivity.addItemsFromJSON(ctx)
-        assignNewCareTeamData()
-        assignApprovedAppsData()
-        assignMealInfoData()
-        assignScheduleData()
-
+        try {
+            MainActivity.addItemsFromJSON(ctx)
+            assignNewCareTeamData()
+            assignApprovedAppsData()
+            assignMealInfoData()
+            assignScheduleData()
+        } catch (e: Exception) {
+            Log.d(Constants.MyStayFragmentTag, "addItemsFromJSON: ", e)
+        }
         video_visit_layout.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_MyStayFragment_to_VideoVisitFragment)
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun assignScheduleData() {
         layoutManager = LinearLayoutManager(ctx)
         schedule.layoutManager = layoutManager
-        for (i in 0 until allResults.size) {
-            sharedPrefManaged = ctx.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
-            if (sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                ) != null && allResults[i].patientId == sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                )
-            ) {
-                if (allResults[i].schedule!!.isNotEmpty()) {
-                    scheduleAdapter = ScheduleAdapter(ctx, allResults[i].schedule)
-                    schedule_layout.visibility = View.VISIBLE
-                    empty_schedule.visibility = View.GONE
+        if (!allResults.isNullOrEmpty()) {
+            for (i in 0 until allResults!!.size) {
+                sharedPrefManaged = ctx.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES,
+                    Context.MODE_PRIVATE)
+                if (sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    ) != null && allResults!![i].patientId == sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    )
+                ) {
+                    if (allResults!![i].schedule!!.isNotEmpty()) {
+                        scheduleAdapter = ScheduleAdapter(ctx, allResults!![i].schedule)
+                        schedule_layout.visibility = View.VISIBLE
+                        empty_schedule.visibility = View.GONE
+                    } else {
+                        schedule_layout.visibility = View.GONE
+                        empty_schedule.visibility = View.VISIBLE
+                    }
+                    break
                 } else {
                     schedule_layout.visibility = View.GONE
                     empty_schedule.visibility = View.VISIBLE
                 }
-                break
-            } else {
-                schedule_layout.visibility = View.GONE
-                empty_schedule.visibility = View.VISIBLE
             }
+            schedule.adapter = scheduleAdapter
+            scheduleAdapter?.notifyDataSetChanged()
+        } else {
+            schedule_layout.visibility = View.GONE
+            empty_schedule.visibility = View.VISIBLE
         }
-        schedule.adapter = scheduleAdapter
-        scheduleAdapter?.notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun assignMealInfoData() {
         layoutManager = LinearLayoutManager(ctx)
         meal_info.layoutManager = layoutManager
-        for (i in 0 until allResults.size) {
-            sharedPrefManaged = ctx.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
-            if (sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                ) != null && allResults[i].patientId == sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                )
-            ) {
-                if (allResults[i].mealInfo!!.isNotEmpty()) {
-                    mealInfoAdapter = MealInfoAdapter(ctx, allResults[i].mealInfo)
-                    meal_info_layout.visibility = View.VISIBLE
-                    empty_meal_info.visibility = View.GONE
+        if (!allResults.isNullOrEmpty()) {
+            for (i in 0 until allResults!!.size) {
+                sharedPrefManaged = ctx.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES,
+                    Context.MODE_PRIVATE)
+                if (sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    ) != null && allResults!![i].patientId == sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    )
+                ) {
+                    if (allResults!![i].mealInfo!!.isNotEmpty()) {
+                        mealInfoAdapter = MealInfoAdapter(ctx, allResults!![i].mealInfo)
+                        meal_info_layout.visibility = View.VISIBLE
+                        empty_meal_info.visibility = View.GONE
+                    } else {
+                        meal_info_layout.visibility = View.GONE
+                        empty_meal_info.visibility = View.VISIBLE
+                    }
+                    break
                 } else {
                     meal_info_layout.visibility = View.GONE
                     empty_meal_info.visibility = View.VISIBLE
                 }
-                break
-            } else {
-                meal_info_layout.visibility = View.GONE
-                empty_meal_info.visibility = View.VISIBLE
             }
+            meal_info.adapter = mealInfoAdapter
+            mealInfoAdapter?.notifyDataSetChanged()
+        } else {
+            meal_info_layout.visibility = View.GONE
+            empty_meal_info.visibility = View.VISIBLE
         }
-        meal_info.adapter = mealInfoAdapter
-        mealInfoAdapter?.notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun assignApprovedAppsData() {
         layoutManager = LinearLayoutManager(ctx)
         featured_app.layoutManager = GridLayoutManager(ctx, 3)
-        for (i in 0 until allResults.size) {
-            sharedPrefManaged = ctx.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
-            if (sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                ) != null && allResults[i].patientId == sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                )
-            ) {
-                if (allResults[i].featuredApp!!.isNotEmpty()) {
-                    featuredAppAdapter = FeaturedAppAdapter(ctx, allResults[i].featuredApp)
-                    approved_apps_layout.visibility = View.VISIBLE
-                    empty_approved_apps.visibility = View.GONE
+        if (!allResults.isNullOrEmpty()) {
+            for (i in 0 until allResults!!.size) {
+                sharedPrefManaged = ctx.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES,
+                    Context.MODE_PRIVATE)
+                if (sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    ) != null && allResults!![i].patientId == sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    )
+                ) {
+                    if (allResults!![i].featuredApp!!.isNotEmpty()) {
+                        featuredAppAdapter = FeaturedAppAdapter(ctx, allResults!![i].featuredApp)
+                        approved_apps_layout.visibility = View.VISIBLE
+                        empty_approved_apps.visibility = View.GONE
+                    } else {
+                        approved_apps_layout.visibility = View.GONE
+                        empty_approved_apps.visibility = View.VISIBLE
+                    }
+                    break
                 } else {
                     approved_apps_layout.visibility = View.GONE
                     empty_approved_apps.visibility = View.VISIBLE
                 }
-                break
-            } else {
-                approved_apps_layout.visibility = View.GONE
-                empty_approved_apps.visibility = View.VISIBLE
             }
+            featured_app.adapter = featuredAppAdapter
+            featuredAppAdapter?.notifyDataSetChanged()
+        } else {
+            approved_apps_layout.visibility = View.GONE
+            empty_approved_apps.visibility = View.VISIBLE
         }
-        featured_app.adapter = featuredAppAdapter
-        featuredAppAdapter?.notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun assignNewCareTeamData() {
         layoutManager = LinearLayoutManager(ctx)
         my_care_team.layoutManager = layoutManager
-        for (i in 0 until allResults.size) {
-            sharedPrefManaged = ctx.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES, Context.MODE_PRIVATE)
-            if (sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                ) != null && allResults[i].patientId == sharedPrefManaged?.getString(
-                    Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
-                    null
-                )
-            ) {
-                if (allResults[i].careTeam!!.isNotEmpty()) {
-                    myCareTeamAdapter = MyCareTeamAdapter(ctx, allResults[i].careTeam)
-                    my_care_team_layout.visibility = View.VISIBLE
-                    empty_my_care_team.visibility = View.GONE
+        if (!allResults.isNullOrEmpty()) {
+            for (i in 0 until allResults!!.size) {
+                sharedPrefManaged = ctx.getSharedPreferences(Constants.SHARED_MANAGED_CONFIG_VALUES,
+                    Context.MODE_PRIVATE)
+                if (sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    ) != null && allResults!![i].patientId == sharedPrefManaged?.getString(
+                        Constants.SHARED_MANAGED_CONFIG_PATIENT_ID,
+                        null
+                    )
+                ) {
+                    if (allResults!![i].careTeam!!.isNotEmpty()) {
+                        myCareTeamAdapter = MyCareTeamAdapter(ctx, allResults!![i].careTeam)
+                        my_care_team_layout.visibility = View.VISIBLE
+                        empty_my_care_team.visibility = View.GONE
+                    } else {
+                        my_care_team_layout.visibility = View.GONE
+                        empty_my_care_team.visibility = View.VISIBLE
+                    }
+                    break
                 } else {
                     my_care_team_layout.visibility = View.GONE
                     empty_my_care_team.visibility = View.VISIBLE
                 }
-                break
-            } else {
-                my_care_team_layout.visibility = View.GONE
-                empty_my_care_team.visibility = View.VISIBLE
             }
+            my_care_team.adapter = myCareTeamAdapter
+            scheduleAdapter?.notifyDataSetChanged()
+        } else {
+            my_care_team_layout.visibility = View.GONE
+            empty_my_care_team.visibility = View.VISIBLE
         }
-        my_care_team.adapter = myCareTeamAdapter
-        scheduleAdapter?.notifyDataSetChanged()
     }
 
     override fun onStart() {
@@ -198,7 +233,7 @@ class MyStayFragment : Fragment() {
         super.onStop()
     }
 
-    class RefreshNeededInFragment(val event: String)
+    class RefreshNeededInFragment
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: RefreshNeededInFragment) {
