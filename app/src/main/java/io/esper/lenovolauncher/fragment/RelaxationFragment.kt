@@ -121,8 +121,6 @@ class RelaxationFragment : Fragment(), AdvancedWebView.Listener {
 
     override fun onPageFinished(url: String?) {
         loading.visibility = View.GONE
-
-        Log.i("TAG", "onPageStarted: $url");
     }
 
     override fun onPageError(errorCode: Int, description: String, failingUrl: String) {
